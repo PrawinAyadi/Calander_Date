@@ -786,6 +786,7 @@ id title_template
 id top
 id topPanel
 id tvDOB
+id tvTime
 id uniform
 id up
 id useLogo
