@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -17,6 +19,10 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private TextView tvDOB;
     private TextView tvTime;
+    private ProgressBar progressBar;
+    private int progressStatus =0;
+    private TextView textView;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         setContentView(R.layout.activity_main);
         tvDOB = findViewById(R.id.tvDOB);
         tvTime = findViewById(R.id.tvTime);
+        progressBar = findViewById(R.id.progressBar);
+        textView = findViewById(R.id.textView);
 
         tvDOB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +81,33 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             }
         }, hour, minute, false);
         timePickerDialog.show();
-    }
+
+
+     new Thread(new Runnable() {
+        @Override
+        public void run() {
+            while ( progressStatus<100){
+                progressStatus += 1;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setProgress(progressStatus);
+                        textView.setText(progressStatus + "/" + progressBar.getMax());
+                    }
+                };
+                try{
+                    Thread.sleep(200);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+
+                }
+            }
+        }
+    }).start();
 
 }
+}
+
 
 

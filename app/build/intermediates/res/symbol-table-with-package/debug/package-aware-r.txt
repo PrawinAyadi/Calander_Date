@@ -735,6 +735,8 @@ id packed
 id parent
 id parentPanel
 id percent
+id progressBar
+id progressBar_Cyclic
 id progress_circular
 id progress_horizontal
 id radio
@@ -779,6 +781,7 @@ id text
 id text2
 id textSpacerNoButtons
 id textSpacerNoTitle
+id textView
 id time
 id title
 id titleDividerNoCustom
